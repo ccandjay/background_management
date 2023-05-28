@@ -1,0 +1,31 @@
+server:
+  port: 8081
+  address: 0.0.0.0   # 允许局域网访问
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/qingbootvue?characterEncoding=UTF-8
+    username: root
+    password: 123
+  http:
+    multipart:
+      max-file-size: 1000MB
+      max-request-size: 1000MB
+  #    热重载
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+      exclude: WEB-INF/**
+  freemarker:
+    cache: false
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+files:
+  upload:
+    path: D:/qingge/files/
+
