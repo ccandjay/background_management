@@ -11,25 +11,25 @@
       </el-col>
       <el-col :span="6">
         <el-card style="color: #ff7800">
-          <div><i class="el-icon-s-goods"></i> 销售总量</div>
+          <div><i class="el-icon-s-goods"></i> 课程总数</div>
           <div style="padding: 10px 0; text-align: center; font-weight: bold">
-            10W件
+            1431
           </div>
         </el-card>
       </el-col>
       <el-col :span="6">
         <el-card style="color: #9fe080">
-          <div><i class="el-icon-s-data"> </i> 收益总额</div>
+          <div><i class="el-icon-s-data"> </i> 总课时 </div>
           <div style="padding: 10px 0; text-align: center; font-weight: bold">
-            ￥1000000
+            1000000
           </div>
         </el-card>
       </el-col>
       <el-col :span="6">
         <el-card style="color: #cf000d">
-          <div><i class="el-icon-s-shop"></i> 门店总数</div>
+          <div><i class="el-icon-s-shop"></i> 本月活跃 </div>
           <div style="padding: 10px 0; text-align: center; font-weight: bold">
-            1021家
+            732
           </div>
         </el-card>
       </el-col>
@@ -62,7 +62,7 @@ export default {
     // 柱状图
     const option = {
       title: {
-        text: '各季度会员数量统计',
+        text: '各季度数量统计',
         subtext: '折线柱状统计图',
         left: 'center'
       },

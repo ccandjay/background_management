@@ -35,4 +35,22 @@
 | Swagger-UI       | API文档生成工具  |
 | Druid            | 数据库连接池     |
 
+
+
+#### 开发环境
+
+| 应用     | 说明             |
+| -------- | ---------------- |
+| idea     | 后端IDE          |
+| Vscode   | 前端IDE          |
+| Postman  | 接口测试工具     |
+| Mysql    | 数据库           |
+| JDK1.8   | java环境         |
+| VueCli   | Vue脚手架        |
+| node.js  | js运行环境       |
+| DataGrip | 数据库可视化工具 |
+| Typora   | 文档编辑器       |
+
+
+
 #### 
