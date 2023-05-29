@@ -4,14 +4,20 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.date.Quarter;
 import cn.hutool.core.io.unit.DataUnit;
+import cn.hutool.core.lang.TypeReference;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
 import com.marker.common.Result;
+import com.marker.entity.SysFile;
 import com.marker.entity.SysUser;
+import com.marker.mapper.SysFileMapper;
 import com.marker.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +29,9 @@ public class EchartsController {
 
     @Autowired
     private SysUserService userService;
+
+    @Resource
+    private SysFileMapper fileMapper;
 
 
     @GetMapping("/members")
@@ -56,5 +65,11 @@ public class EchartsController {
             }
         }
         return Result.success(CollUtil.newArrayList(q1,q2,q3,q4));
+    }
+
+    @GetMapping("/file/front/all")
+    public Result frontAll() {
+        List<SysFile> files = fileMapper.selectList(null);
+        return Result.success(files);
     }
 }

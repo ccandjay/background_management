@@ -23,6 +23,13 @@ export function fileUpload (data) {
   })
 }
 
+export function fileDetail (data) {
+  return request({
+    url: '/files/detail/' + data.id,
+    method: 'get'
+  })
+}
+
 export function fileCompleteDel (data) {
   return request({
     url: '/files/complete/del',

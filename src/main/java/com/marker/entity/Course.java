@@ -1,6 +1,7 @@
 package com.marker.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
@@ -27,7 +28,7 @@ public class Course implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "id")
-      @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     @ApiModelProperty(value = "课程名称")
@@ -36,14 +37,17 @@ public class Course implements Serializable {
     @ApiModelProperty(value = "学分")
     private Integer score;
 
-    @ApiModelProperty(value = "上课时间")
+    @ApiModelProperty(value = "课时")
     private String times;
 
     @ApiModelProperty(value = "是否开课")
-    private Boolean state;
+    private Integer state;
 
     @ApiModelProperty(value = "授课老师id")
     private Integer teacherId;
+
+    @TableField(exist = false)
+    private String teacher;
 
 
 }

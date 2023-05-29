@@ -105,6 +105,7 @@
         <el-button type="primary" @click="submit">确 定</el-button>
       </div>
     </el-dialog>
+
     <el-dialog
       title="菜单分配"
       :visible.sync="menuDialogFormVisible"

@@ -2,6 +2,7 @@ package com.marker.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -15,7 +16,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableOpenApi
-@EnableSwagger2
 public class SwaggerConfig {
 
     /**
@@ -30,7 +30,7 @@ public class SwaggerConfig {
     public Docket restApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("标准接口")
-                .apiInfo(apiInfo("Spring Boot中使用Swagger2构建RESTful APIs", "1.0"))
+                .apiInfo(apiInfo())
                 .useDefaultResponseMessages(true)
                 .forCodeGeneration(false)
                 .select()
@@ -45,11 +45,11 @@ public class SwaggerConfig {
      *
      * @return
      */
-    private ApiInfo apiInfo(String title, String version) {
+    private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title(title)
+                .title("Spring Boot中使用Swagger2构建RESTful APIs")
                 .contact(new Contact("ysz", "", ""))
-                .version(version)
+                .version("1.0")
                 .build();
     }
 

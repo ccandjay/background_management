@@ -131,7 +131,10 @@ public class FileController {
         return Result.success(fileService.updateById(file));
     }
 
-
+    @GetMapping("/detail/{id}")
+    public Result getById(@PathVariable Integer id) {
+        return Result.success(fileMapper.selectById(id));
+    }
     @GetMapping("/page")
     public Result findPage(@RequestParam Integer pageNum,
                            @RequestParam Integer pageSize,

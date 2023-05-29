@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapp
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.marker.common.Constants;
 import com.marker.controller.dto.UserDto;
+import com.marker.controller.dto.UserPasswordDto;
 import com.marker.entity.SysMenu;
 import com.marker.entity.SysRole;
 import com.marker.entity.SysUser;
@@ -22,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,14 +39,17 @@ import java.util.List;
 @Slf4j
 public class SysUserImplService extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
 
-    @Autowired
+    @Resource
     private SysRoleMapper roleService;
 
-    @Autowired
+    @Resource
     private SysRoleMenuMapper roleMenuMapper;
 
     @Autowired
     private SysMenuService menuService;
+
+    @Resource
+    private SysUserMapper userMapper;
 
     @Override
     public UserDto login(UserDto user) {
@@ -64,6 +69,14 @@ public class SysUserImplService extends ServiceImpl<SysUserMapper, SysUser> impl
         }else{
             log.info("用户登录失败,用户名或密码错误");
             throw new ServiceException(Constants.CODE_600, "用户名或密码错误");
+        }
+    }
+
+    @Override
+    public void updatePassword(UserPasswordDto userPasswordDTO) {
+        int update = userMapper.updatePassword(userPasswordDTO);
+        if (update < 1) {
+            throw new ServiceException(Constants.CODE_600, "密码错误");
         }
     }
 

@@ -22,6 +22,10 @@ import java.io.Serializable;
 @ApiModel(value="SysRoleMenu对象", description="角色菜单关系表")
 public class SysRoleMenu implements Serializable {
 
+    public static void main(String[] args) {
+
+    }
+
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "角色id")

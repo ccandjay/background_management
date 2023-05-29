@@ -61,6 +61,21 @@ export function userInfo (data) {
   })
 }
 
+export function getTeachers (data) {
+  return request({
+    url: '/user/role/' + data.role,
+    method: 'get'
+  })
+}
+
+export function editPassword (data) {
+  return request({
+    url: '/user/password',
+    method: 'post',
+    data
+  })
+}
+
 export default {
   userSave,
   userDelete,

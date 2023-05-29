@@ -1,6 +1,7 @@
 package com.marker.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
@@ -10,6 +11,7 @@ import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -57,6 +59,12 @@ public class SysUser implements Serializable {
 
     @ApiModelProperty(value = "角色")
     private String role;
+
+    @TableField(exist = false)
+    private List<Course> courses;
+
+    @TableField(exist = false)
+    private List<Course> stuCourses;
 
 
 }

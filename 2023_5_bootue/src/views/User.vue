@@ -78,19 +78,30 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" > </el-table-column>
-      <el-table-column prop="id" label="id" > </el-table-column>
-      <el-table-column prop="username" label="用户名" >
+      <el-table-column prop="id" label="id" width="90"> </el-table-column>
+      <el-table-column prop="username" label="用户名" width="120">
       </el-table-column>
-      <el-table-column prop="role" label="角色">
-      </el-table-column>
-      <el-table-column prop="nickname" label="昵称"> </el-table-column>
-      <el-table-column prop="email" label="邮箱"> </el-table-column>
-      <el-table-column prop="phone" label="电话"> </el-table-column>
-      <el-table-column prop="address" label="地址"> </el-table-column>
-      <el-table-column>
+      <el-table-column prop="role" label="角色" width="120">
         <template slot-scope="scope">
-          <el-button type="success" @click="handleEdit(scope.row)" size="small"
+          <el-tag type="primary" v-if="scope.row.role === 'ROLE_ADMIN'">管理员</el-tag>
+          <el-tag type="warning" v-if="scope.row.role === 'ROLE_TEACHER'">老师</el-tag>
+          <el-tag type="success" v-if="scope.row.role === 'ROLE_STUDENT'">学生</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column prop="nickname" label="昵称" width="130"> </el-table-column>
+      <el-table-column prop="email" label="邮箱"  width="170"> </el-table-column>
+      <el-table-column prop="phone" label="电话"  width="170"> </el-table-column>
+      <el-table-column prop="address" label="地址"  width="170"> </el-table-column>
+      <el-table-column label="操作">
+        <template slot-scope="scope">
+          <el-button type="success" @click="handleEdit(scope.row)" size="small" v-if="userInfo.role == 'ROLE_ADMIN'"
             >编辑 <i class="el-icon-edit"></i
+          ></el-button>
+          <el-button type="success" @click="showClass(scope.row)" size="small" v-if="scope.row.role=='ROLE_TEACHER'"
+            >所带课程 <i class="el-icon-finished"></i
+          ></el-button>
+          <el-button type="success" @click="showClass(scope.row)" size="small"  v-if="scope.row.role=='ROLE_STUDENT'"
+            >所选课程 <i class="el-icon-finished"></i
           ></el-button>
           <el-popconfirm
             class="ml-5"
@@ -101,7 +112,7 @@
             title="确定删除该用户吗?"
             @confirm="handleDel(scope.row)"
           >
-            <el-button slot="reference" type="danger" size="small"
+            <el-button slot="reference" type="danger" size="small" v-if="userInfo.role == 'ROLE_ADMIN'"
               >删除 <i class="el-icon-delete"></i
             ></el-button>
           </el-popconfirm>
@@ -149,6 +160,13 @@
         <el-button type="primary" @click="submit">确 定</el-button>
       </div>
     </el-dialog>
+
+    <el-dialog title="课程信息" :visible.sync="stuVis" width="30%" >
+      <el-table :data="stuCourses" border stripe>
+        <el-table-column prop="name" label="课程名称"></el-table-column>
+        <el-table-column prop="score" label="学分"></el-table-column>
+      </el-table>
+    </el-dialog>
   </div>
 </template>
 
@@ -178,7 +196,10 @@ export default {
       // 多选的选中信息
       multipleSelection: [],
       roles: [],
-      entity: {}
+      entity: {},
+      stuVis: false,
+      stuCourses: [],
+      userInfo: JSON.parse(localStorage.getItem('user')) || {}
     }
   },
   created () {
@@ -194,6 +215,7 @@ export default {
         address: this.address
       }
       userPage(params).then((res) => {
+        console.log(res)
         if (res.code === '200') {
           this.total = res.data.total
           this.tableData = res.data.records
@@ -205,7 +227,6 @@ export default {
       roleList().then(res => {
         if (res.code === '200') {
           this.roles = res.data
-          console.log(res)
         }
       })
     },
@@ -242,6 +263,14 @@ export default {
     handleEdit (row) {
       this.form = row
       this.dialogFormVisible = true
+    },
+    // 查看所带课程
+    showClass (row) {
+      this.stuVis = true
+      this.stuCourses = row.courses
+    },
+    selectCourse (id) {
+
     },
     collapse () {
       this.isCollapse = !this.isCollapse

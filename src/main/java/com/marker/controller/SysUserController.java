@@ -3,6 +3,7 @@ package com.marker.controller;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.SecureUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
@@ -13,7 +14,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.marker.common.Constants;
 import com.marker.common.Result;
 import com.marker.controller.dto.UserDto;
+import com.marker.controller.dto.UserPasswordDto;
 import com.marker.entity.SysUser;
+import com.marker.mapper.SysUserMapper;
 import com.marker.service.SysUserService;
 import com.marker.utils.TokenUtils;
 import org.apache.poi.ss.formula.functions.T;
@@ -21,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
@@ -43,6 +47,9 @@ public class SysUserController {
     @Autowired
     private SysUserService userService;
 
+    @Resource
+    private SysUserMapper userMapper;
+
     @PostMapping("/login")
     public Result login(@RequestBody UserDto user) {
         String username = user.getUsername();
@@ -51,6 +58,19 @@ public class SysUserController {
             return Result.error(Constants.CODE_400, "参数错误");
         }
         return Result.success(userService.login(user));
+    }
+
+    /**
+     * 修改密码
+     * @param userPasswordDTO
+     * @return
+     */
+    @PostMapping("/password")
+    public Result password(@RequestBody UserPasswordDto userPasswordDTO) {
+        userPasswordDTO.setPassword(SecureUtil.md5(userPasswordDTO.getPassword()));
+        userPasswordDTO.setNewPassword(SecureUtil.md5(userPasswordDTO.getNewPassword()));
+        userService.updatePassword(userPasswordDTO);
+        return Result.success();
     }
 
     @PostMapping
@@ -64,10 +84,20 @@ public class SysUserController {
         return Result.success(userService.updateById(sysUser));
     }
 
+    @GetMapping("/role/{role}")
+    public Result listTeachers(@PathVariable String role) {
+        LambdaQueryWrapper<SysUser> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(SysUser::getRole,role);
+        return Result.success(userService.list(lqw));
+    }
+
+
     @GetMapping()
     public Result list() {
         return Result.success(userService.list());
     }
+
+
 
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id) {
@@ -94,19 +124,8 @@ public class SysUserController {
                            @RequestParam(defaultValue = "") String address
     ) {
 
-        IPage<SysUser> iPage = new Page<>(page, pageSize);
-        QueryWrapper<SysUser> qw = new QueryWrapper<>();
-        if (!"".equals(username)) {
-            qw.like("username", username);
-        }
-        if (!"".equals(email)) {
-            qw.like("email", email);
-        }
-        if (!"".equals(address)) {
-            qw.like("address", address);
-        }
-        qw.orderByDesc("id");
-        return Result.success(userService.page(iPage, qw));
+
+        return Result.success(userMapper.findPage(new Page<>(page, pageSize), username, email, address));
     }
 
 

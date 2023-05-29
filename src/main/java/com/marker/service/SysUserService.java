@@ -2,6 +2,7 @@ package com.marker.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.marker.controller.dto.UserDto;
+import com.marker.controller.dto.UserPasswordDto;
 import com.marker.entity.SysUser;
 
 /**
@@ -15,4 +16,6 @@ import com.marker.entity.SysUser;
 public interface SysUserService extends IService<SysUser> {
 
     UserDto login(UserDto user);
+
+    void updatePassword(UserPasswordDto userPasswordDTO);
 }

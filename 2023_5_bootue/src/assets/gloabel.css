@@ -20,3 +20,7 @@ html,body{
 .pd-10{
     padding: 10px 0;
 }
+
+.dis-in-b{
+    display: inline-block;
+}

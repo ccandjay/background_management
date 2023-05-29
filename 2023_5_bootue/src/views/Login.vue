@@ -74,8 +74,10 @@ export default {
         localStorage.setItem('user', JSON.stringify(res.data))
         localStorage.setItem('menus', JSON.stringify(res.data.menus))
         if (res.code === '200') {
-          this.$router.push('/')
           this.$message.success('登录成功')
+          setTimeout(() => {
+            this.$router.push('/')
+          }, 500)
           setRouter()
         } else {
           this.$message.error('用户名或密码错误')

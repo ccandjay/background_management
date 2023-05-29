@@ -7,3 +7,10 @@ export function echartsMembers (data) {
 
   })
 }
+
+export function fileFrontAll () {
+  return request({
+    url: '/echarts/file/front/all',
+    method: 'get'
+  })
+}

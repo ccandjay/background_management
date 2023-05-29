@@ -7,6 +7,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.marker.entity.SysUser;
 import com.marker.service.SysUserService;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import springfox.documentation.RequestHandler;
@@ -14,11 +15,13 @@ import springfox.documentation.RequestHandler;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.annotation.Resources;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 /**
  * token管理工具类
  */
+@Component
 public class TokenUtils {
 
     private static SysUserService staticUserService;
@@ -51,11 +54,11 @@ public class TokenUtils {
      */
     public static SysUser getCurrentUser() {
         try {
-            HttpServerRequest request = (HttpServerRequest) ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+            HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
             String token = request.getHeader("token");
-            if (StrUtil.isBlank(token)) {
-                String uid = JWT.decode(token).getAudience().get(0);
-                return staticUserService.getById(uid);
+            if (StrUtil.isNotBlank(token)) {
+                String userId = JWT.decode(token).getAudience().get(0);
+                return staticUserService.getById(Integer.valueOf(userId));
             }
         } catch (Exception e) {
             return null;

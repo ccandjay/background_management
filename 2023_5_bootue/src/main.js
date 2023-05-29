@@ -9,7 +9,13 @@ import request from './utils/request'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 import { baseApi } from './config'
+import VueVideoPlayer from 'vue-video-player'
+import 'video.js/dist/video-js.css'
+import 'vue-video-player/src/custom-theme.css'
+// window.videojs = VueVideoPlayer.videojs
+// require('video.js/dist/lang/zh-CN.js');
 // use
+Vue.use(VueVideoPlayer)
 Vue.use(mavonEditor)
 
 Vue.config.productionTip = false
