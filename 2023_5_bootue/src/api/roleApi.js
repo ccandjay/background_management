@@ -69,10 +69,3 @@ export function roleMenuId (data) {
     params: data
   })
 }
-
-export default {
-  roleSave,
-  roleDelete,
-  roleList,
-  rolePage
-}

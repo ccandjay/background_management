@@ -75,10 +75,3 @@ export function editPassword (data) {
     data
   })
 }
-
-export default {
-  userSave,
-  userDelete,
-  userList,
-  userPage
-}

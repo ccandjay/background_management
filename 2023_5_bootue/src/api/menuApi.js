@@ -62,9 +62,3 @@ export function menuIcons () {
   })
 }
 
-export default {
-  menuSave,
-  menuDelete,
-  menuList,
-  menuPage
-}
