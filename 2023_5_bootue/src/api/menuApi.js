@@ -61,4 +61,3 @@ export function menuIcons () {
     method: 'get'
   })
 }
-

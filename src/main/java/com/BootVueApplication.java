@@ -24,14 +24,14 @@ public class BootVueApplication {
         SpringApplication.run(BootVueApplication.class, args);
     }
 
-    @Bean
-    public MultipartConfigElement multipartConfigElement() {
-        MultipartConfigFactory factory = new MultipartConfigFactory();
-        //指定文件代销
-        factory.setMaxFileSize(DataSize.ofBytes(10485760*1024));
-        /// 设定上传文件大小
-        factory.setMaxRequestSize(DataSize.ofBytes(10485760*1024));
-        return factory.createMultipartConfig();
-    }
+//    @Bean
+//    public MultipartConfigElement multipartConfigElement() {
+//        MultipartConfigFactory factory = new MultipartConfigFactory();
+//        //指定文件代销
+//        factory.setMaxFileSize(DataSize.ofBytes(10485760*1024));
+//        /// 设定上传文件大小
+//        factory.setMaxRequestSize(DataSize.ofBytes(10485760*1024));
+//        return factory.createMultipartConfig();
+//    }
 
 }
