@@ -102,6 +102,7 @@
 
 <script>
 import { artivleGetOne } from '@/api/artivleApi'
+import { commentSave, delComment, getCommentById } from '@/api/connentApi'
 export default {
   name: 'ArticleView',
   data () {
@@ -125,7 +126,7 @@ export default {
       })
     },
     loadComment () {
-      this.request.get('/comment/tree/' + this.id).then(res => {
+      getCommentById({ id: this.id }).then(res => {
         this.comments = res.data
       })
     },
@@ -138,7 +139,7 @@ export default {
       if (this.commentForm.contentReply) {
         this.commentForm.content = this.commentForm.contentReply
       }
-      this.request.post('/comment', this.commentForm).then(res => {
+      commentSave(this.commentForm).then(res => {
         if (res.code === '200') {
           this.$message.success('评论成功')
           this.commentForm = {} // 初始化评论对象内容
@@ -150,7 +151,7 @@ export default {
       })
     },
     del (id) {
-      this.request.delete('/comment/' + id).then(res => {
+      delComment({ id: id }).then(res => {
         if (res.code === '200') {
           this.$message.success('删除成功')
           this.loadComment()
