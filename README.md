@@ -12,15 +12,16 @@
 
 ##### 前端技术：
 
-| 技术         | 说明                    |
-| ------------ | ----------------------- |
-| Vue          | 前端框架                |
-| Vue-router   | 路由框架                |
-| Element      | 前端UI框架              |
-| Axios        | 前端HTTP框架            |
-| Echarts      | 图表框架                |
-| Mavon-editor | 基于vue的markdown编辑器 |
-| ESLint       | 校验代码格式规范        |
+| 技术             | 说明                    |
+| ---------------- | ----------------------- |
+| Vue              | 前端框架                |
+| Vue-router       | 路由框架                |
+| Element          | 前端UI框架              |
+| Axios            | 前端HTTP框架            |
+| Echarts          | 图表框架                |
+| Mavon-editor     | 基于vue的markdown编辑器 |
+| ESLint           | 校验代码格式规范        |
+| vue-video-player | 基于vue的视频播放插件   |
 
 ##### 后端框架
 
